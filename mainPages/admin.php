@@ -100,13 +100,13 @@
                     <div class="top text-center">
                         <p>Все пункты меню</p>
                     </div>
-                    <div ondragover="true" id="allPagesList" class="bottom p-2 w-100 mx-auto">
+                    <div ondragover="true" class="pagesList bottom p-2 w-100 mx-auto">
                         <?php 
                         foreach($result as $row) {
                             echo '
-                            <div draggable="true" class="my-page-block mt-2">
+                            <div draggable="true" class="draggable my-page-block mt-2">
                             <form class="my-page-form" action="" method="GET">
-                                <div class="number">' . $i . '. </div>
+                                <div class="number">' . $row['id_page'] . '. </div>
                                 <input hidden type="text" id="updPageId" class="page-text text-center" name="pageIdDel" value="' . $row['id_page'] . '"> 
                                 <input hidden type="text" id="updPageLink" class="page-text text-center" name="pageLink" value="' . $row['key_page'] . '">
                                 <input hidden type="text" id="oldPageLink" class="page-text text-center" name="oldPageLink" value="' . $row['key_page'] . '">
@@ -131,7 +131,7 @@
                     <div class="top text-center">
                         <p>Видимые пункты меню</p>
                     </div>
-                    <div ondragover="true" class="bottom p-2 w-100 mx-auto">
+                    <div ondragover="true" class="pagesList bottom p-2 w-100 mx-auto">
                     </div>
                 </div>
             </div>
