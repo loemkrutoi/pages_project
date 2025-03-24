@@ -67,3 +67,21 @@ function dragAfter(pageList, y){
         }
     }, {offset: Number.NEGATIVE_INFINITY}).element;
 }
+async function saveOrder(){
+    const order = [];
+    const draggableElement = pagesLists.querySelectorAll('.draggable');
+    draggableElement.forEach((row, index) => {
+        order.push({
+            id: row.dataset.id,
+            position: index
+        });
+    });
+    let queryOrder = await fetch('saveOrder.php', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({order})
+    });
+    let responseOrder = await queryOrder.text();
+    console.log(responseOrder);
+}
+saveOrder();
