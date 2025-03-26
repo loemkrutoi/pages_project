@@ -62,7 +62,7 @@
         }
     }
 
-    if(isset($_GET)){
+    if(!empty($_GET["pageIdDel"]) && !empty($_GET["pageLink"]) && !empty($_GET["pageName"])){
         $pageIdDel = $_GET["pageIdDel"];
         $pageLink = $_GET["pageLink"];
         $pageName = $_GET["pageName"];

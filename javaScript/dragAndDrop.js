@@ -32,22 +32,22 @@
 
 let pagesLists = document.querySelectorAll('.pagesList');
 let draggables = document.querySelectorAll('.draggable');
-
+let kostal;
 draggables.forEach(draggable => {
     draggable.addEventListener('dragstart', () => {
         draggable.classList.add('dragging');
     });
-    draggable.addEventListener('dragend', () => {
+    draggable.addEventListener('dragend', (e) => {
         draggable.classList.remove('dragging');
+        window.location.href="/javaScript/saveOrder.php?to="+draggable.querySelector('a').textContent+"&from="+kostal;
     });
 });
 pagesLists.forEach(pageList => {
     pageList.addEventListener('dragover', event => {
         event.preventDefault();
         let afterElement = dragAfter(pageList, event.clientY);
-        console.log(afterElement);
+        // console.log(afterElement);
         let draggable = document.querySelector('.dragging');
-
         if(afterElement == null){
             pageList.appendChild(draggable);
         } else {
@@ -61,27 +61,28 @@ function dragAfter(pageList, y){
         let box = child.getBoundingClientRect();
         let offset = y - box.top - box.height / 2;
         if (offset < 0 && offset > closest.offset){
+            kostal=child.querySelector("a").textContent;
             return {offset: offset, element: child};
         } else {
             return closest;
         }
     }, {offset: Number.NEGATIVE_INFINITY}).element;
 }
-async function saveOrder(){
-    const order = [];
-    const draggableElement = pagesLists.querySelectorAll('.draggable');
-    draggableElement.forEach((row, index) => {
-        order.push({
-            id: row.dataset.id,
-            position: index
-        });
-    });
-    let queryOrder = await fetch('saveOrder.php', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({order})
-    });
-    let responseOrder = await queryOrder.text();
-    console.log(responseOrder);
-}
-saveOrder();
+// async function saveOrder(){
+//     const order = [];
+//     const draggableElement = pagesLists.querySelectorAll('.draggable');
+//     draggableElement.forEach((row, index) => {
+//         order.push({
+//             id: row.dataset.id,
+//             position: index
+//         });
+//     });
+//     let queryOrder = await fetch('saveOrder.php', {
+//         method: 'POST',
+//         headers: {'Content-Type': 'application/json'},
+//         body: JSON.stringify({order})
+//     });
+//     let responseOrder = await queryOrder.text();
+//     console.log(responseOrder);
+// }
+// saveOrder();
